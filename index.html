@@ -124,9 +124,9 @@
 
     <div class="card hidden" id="step3">
         <h2>Kad si slobodna? 🗓️</h2>
-        <p style="color: #666; font-size: 14px;">Izaberi datum i vrijeme</p>
+        <p style="color: #666; font-size: 14px;">Izaberi datum</p>
         <input type="date" id="datePicker"><br>
-        <button id="yesBtn" onclick="nextStep(4)">zapiši datum! 💌</button>
+        <button id="yesBtn" onclick="saveDateAndNext()">zapiši datum! 💌</button>
     </div>
 
     <div class="card hidden" id="step4">
@@ -139,16 +139,19 @@
             <div class="food-item" onclick="selectFood(this)" title="Sok">🧃</div>
             <div class="food-item" onclick="selectFood(this)" title="Pitica">🥧</div>
         </div>
-        <button id="yesBtn" onclick="finish()">to je to! →</button>
+        <button id="yesBtn" onclick="sendToViber()">pošalji mi na Viber! 🚀</button>
     </div>
 
     <div class="card hidden" id="step5">
         <img src="https://media.giphy.com/media/LndvD7m1T484o/giphy.gif" alt="Happy cat">
         <h2>To se traži! Računaj da je dogovoreno. 🥰</h2>
-        <p style="color: #666;">Jedva čekam! ☕✨</p>
+        <p style="color: #666;">Poruka je poslana na Viber! ✨</p>
     </div>
 
     <script>
+        let chosenDate = '';
+        let chosenOption = 'Domaća kafa ☕';
+
         // Bježeće dugme
         function moveButton() {
             const noBtn = document.getElementById('noBtn');
@@ -165,16 +168,35 @@
             document.getElementById('step' + step).classList.remove('hidden');
         }
 
+        function saveDateAndNext() {
+            const dateInput = document.getElementById('datePicker').value;
+            if(!dateInput) {
+                alert('Molimo izaberi datum! 😊');
+                return;
+            }
+            chosenDate = dateInput;
+            nextStep(4);
+        }
+
         // Odabir opcije
-        let chosenOption = '';
         function selectFood(element) {
             document.querySelectorAll('.food-item').forEach(item => item.classList.remove('selected'));
             element.classList.add('selected');
             chosenOption = element.getAttribute('title');
         }
 
-        function finish() {
-            nextStep(5);
+        // Slanje na Viber
+        function sendToViber() {
+            const phoneNumber = "38761557114"; // Primjer: 38761234567
+            const text = encodeURIComponent(`Može! Vidimo se ${chosenDate}, a uz kafu biram: ${chosenOption} ☕🥰`);
+            
+            // Otvara Viber link sa pripremljenom porukom
+            window.location.href = `viber://chat?number=${phoneNumber}&text=${text}`;
+            
+            // Prebacuje na zadnji korak
+            setTimeout(() => {
+                nextStep(5);
+            }, 500);
         }
     </script>
 </body>
