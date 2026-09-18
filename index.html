@@ -139,13 +139,13 @@
             <div class="food-item" onclick="selectFood(this)" title="Sok">🧃</div>
             <div class="food-item" onclick="selectFood(this)" title="Pitica">🥧</div>
         </div>
-        <button id="yesBtn" onclick="sendToViber()">pošalji mi na Viber! 🚀</button>
+        <button id="yesBtn" onclick="sendSMS()">pošalji mi SMS! 🚀</button>
     </div>
 
     <div class="card hidden" id="step5">
         <img src="https://media.giphy.com/media/LndvD7m1T484o/giphy.gif" alt="Happy cat">
         <h2>To se traži! Računaj da je dogovoreno. 🥰</h2>
-        <p style="color: #666;">Poruka je poslana na Viber! ✨</p>
+        <p style="color: #666;">SMS je spreman za slanje! ✨</p>
     </div>
 
     <script>
@@ -185,13 +185,13 @@
             chosenOption = element.getAttribute('title');
         }
 
-        // Slanje na Viber
-        function sendToViber() {
-            const phoneNumber = "38761557114"; // Primjer: 38761234567
-            const text = encodeURIComponent(`Može! Vidimo se ${chosenDate}, a uz kafu biram: ${chosenOption} ☕🥰`);
+        // Slanje SMS-a
+        function sendSMS() {
+            const phoneNumber = "+38761557114";
+            const message = encodeURIComponent(`Može! Vidimo se ${chosenDate}, a uz kafu biram: ${chosenOption} ☕🥰`);
             
-            // Otvara Viber link sa pripremljenom porukom
-            window.location.href = `viber://chat?number=${phoneNumber}&text=${text}`;
+            // Standardni SMS link koji radi na svim mobitelima (Android i iPhone)
+            window.location.href = `sms:${phoneNumber}?body=${message}`;
             
             // Prebacuje na zadnji korak
             setTimeout(() => {
